@@ -1,0 +1,22 @@
+@use "sass:math"
+
+@function strip-units($number)
+  @return math.div($number, ($number * 0 + 1))
+
+@function calc-clamp($minValue, $maxValue, $minViewport, $maxViewport)
+  $minViewport: math.div($minViewport, 16)
+  $maxViewport: math.div($maxViewport, 16)
+
+  @if unit($minValue) == "rem"
+    $minValue: strip-units($minValue)
+  @else
+    $minValue: math.div(strip-units($minValue), 16)
+  @if (unit($maxValue) == "rem")
+    $maxValue: strip-units($maxValue)
+  @else
+    $maxValue: math.div(strip-units($maxValue), 16)
+
+  $slope: math.div($maxValue - $minValue, $maxViewport - $minViewport)
+  $a: -$minViewport * $slope + $minValue
+  $b: $slope * 100
+  @return clamp(#{$minValue + rem}, #{$a + rem} + #{$b + vw}, #{$maxValue + rem})
