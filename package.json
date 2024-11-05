@@ -34,6 +34,7 @@
     "postcss-import": "^16.1.0",
     "rollup": "^4.21.2",
     "sass": "^1.79.4",
+    "through2": "^4.0.2",
     "tslib": "^2.7.0",
     "typescript": "^5.5.4",
     "vinyl-buffer": "^1.0.1",
